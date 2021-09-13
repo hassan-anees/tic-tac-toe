@@ -1,0 +1,45 @@
+html,
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+button {
+    /* font-size: 10em; */
+    /* height: 20em;
+    width: 20em; */
+}
+
+.card {
+    display: flex;
+    font-size: 10em;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 200px;
+    background-color: rgb(44, 137, 208);
+    margin: 10px;
+    box-shadow: 10px 10px 5px 0px rgba(249, 233, 233, 0.75);
+}
+
+.board-row {
+    display: flex;
+}
+
+.tic-button {
+    display: flex;
+    font-size: 10em;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 200px;
+    background-color: rgb(44, 137, 208);
+    /* margin: 10px; */
+    /* padding: 10px; */
+}
