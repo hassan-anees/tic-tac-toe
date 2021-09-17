@@ -5,39 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <div class="container">
-        <div>
-            <h1>Tic-Tac-Toe</h1>
-        </div>
-        <div class="board-container">
-            <!-- <h3>Board Container</h3>
-            <div class="board-row">
-                <div class="card">X</div>
-                <div class="card"></div>
-                <div class="card"></div>
+    <div class="navContainer">
+            <div class="logo">
+                Tic-Tac-Toe
             </div>
-            <div class="board-row">
-                <div class="card">X</div>
-                <div class="card"></div>
-                <div class="card"></div>
-            </div>
-            <div class="board-row">
-                <div class="card">X</div>
-                <div class="card"></div>
-                <div class="card"></div>
-            </div> -->
-            <!-- <div class="board-row">
-                <div class="card"></div>
-            </div>
-            <div class="board-row">
-                <div class="card"></div>
-            </div> -->
-        </div>
-        
     </div>
+    <div class="wrapper">
+        <div class="game-container">
+            <div class="board-container">
+            </div>
+            <div class="restart-btn">
+                <button class="quoteButton custom-btn btn-1">Restart</button>
+            </div>
+        </div>
+        <div class="player-container">
+            <div class="player1">
+                <h2>Player1</h2>
+                <div class="player1-info">
+                    <div class="name">Name:</div>
+                    <div class="score">Score:</div>
+                </div>
+            </div>
+            <div class="player2">
+                <h2>Player2</h2>
+                <div class="player2-info">
+                    <div class="name">Name:</div>
+                    <div class="score">Score:</div>
+                </div>
+            </div>
+            <div class="">
+                <h2>Game Staus:</h2>
+                <h2 class="game-status"></h2>
+            </div>
+        </div>
+    </div>
+    
     <script src="./script.js"></script>
 </body>
 </html>

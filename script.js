@@ -5,9 +5,17 @@ const playerFactory = (name) => {
     // this is the games won
     let score = 0;
     const getName = () => name;
+    const getScore = () => score;
     const getPlayerNumber = () => playerNumber;
     const sayHello = () => console.log("hello " + name);
-    return { getName, getPlayerNumber, sayHello };
+    const updateScore = () => {
+        score += 1;
+    };
+
+    const getPlayerInfo = () => {
+        return `name: ${name}\nscore: ${score}`;
+    };
+    return { getName, getPlayerNumber, sayHello, updateScore, getPlayerInfo, getScore };
 };
 
 // This will handle the logic of the gameboard and updating it
@@ -18,8 +26,12 @@ const playerFactory = (name) => {
 // every time a click is done, we want to check the state of the game, to determine if it is finished
 const gameBoardModule = (() => {
     const docBoard = document.getElementsByClassName("board-container");
-    const player1 = playerFactory("Jojo");
-    const player2 = playerFactory("Dio");
+    const player1 = playerFactory("John Doe");
+    const player2 = playerFactory("Jane Doe");
+    let p1Name = document.querySelector(".player1-info .name");
+    let p1Score = document.querySelector(".player1-info .score");
+    let p2Name = document.querySelector(".player2-info .name");
+    let p2Score = document.querySelector(".player2-info .score");
     let winCond = false;
 
     let player1Turn = true;
@@ -37,7 +49,7 @@ const gameBoardModule = (() => {
     };
 
     const checkIfThreeSame = (array) => {
-        // hmm.. Can;t you do a spread operator here instead?
+        // hmm can also do the spread operator
         let a = array[0];
         let b = array[1];
         let c = array[2];
@@ -79,11 +91,33 @@ const gameBoardModule = (() => {
             });
         });
 
+        // Win condition
         if (winCond) {
-            alert("you won");
-            displayBoard.resetBoard();
+            console.log(player1Turn);
+            let gameStatusEl = document.querySelector(".game-status");
+            // alert("you won");
+            console.log("You won!!!!");
+            // displayBoard.resetBoard();
+            if (player1Turn) {
+                gameStatusEl.innerHTML = "Player 1 WON";
+                player1.updateScore();
+                p1Score.innerHTML = `Score: ${player1.getScore()}`;
+                console.log(player1.getScore());
+                displayBoard.disableBoard(true);
+            } else {
+                gameStatusEl.innerHTML = "Player 2 WON";
+                player2.updateScore();
+                // gets all the button elements
+                p2Score.innerHTML = `Score: ${player2.getScore()}`;
+                console.log(player2.getScore());
+                displayBoard.disableBoard(true);
+            }
         }
-        if (sum == 9) alert("draw");
+        // Draw Condition
+        if (sum == 9 && !winCond) {
+            let gameStatusEl = document.querySelector(".game-status");
+            gameStatusEl.innerHTML = "Draw";
+        }
     };
 
     const inputElement = (event) => {
@@ -105,20 +139,17 @@ const gameBoardModule = (() => {
                 if (player1Turn) {
                     board[i][j] = "X";
                     currentBtn.innerHTML = "X";
-                    // console.log("random text");
-                    // console.log(player1.getName());
+                    checkGameState(i, j);
                     player1Turn = false;
                     console.log(board);
                 } else {
                     board[i][j] = "O";
                     currentBtn.innerHTML = "O";
-                    // console.log("random text2");
-                    // console.log(player2.getName());
+                    checkGameState(i, j);
                     player1Turn = true;
                     console.log(board);
                 }
                 // we want to check state of game every time there is an input
-                checkGameState(i, j);
             }
         }
     };
@@ -126,14 +157,23 @@ const gameBoardModule = (() => {
     document.addEventListener("DOMContentLoaded", () => {
         // Here there should be some event listeners to see if button is clicked
         // ORRR listener on the div ORRR do a querry selector all, and make an array ??
-        let btnEl = document.querySelector("button");
+
+        // let btnEl = document.querySelector("button");
         // btnEl.addEventListener("click", printHello);
+        //// displaying player info
+        p1Name.innerHTML = `Name: ${player1.getName()}`;
+        p1Score.innerHTML = `Score: ${player1.getScore()}`;
+        p2Name.innerHTML = `Name: ${player2.getName()}`;
+        p2Score.innerHTML = `Score: ${player2.getScore()}`;
 
         // gets all the button elements
         document.querySelectorAll("button").forEach((elemet) => {
             // elemet.addEventListener("click", printHello);
             elemet.addEventListener("click", inputElement);
         });
+
+        let restartBtnEl = document.querySelector(".restart-btn");
+        restartBtnEl.addEventListener("click", displayBoard.resetBoard);
     });
 
     return {
@@ -145,6 +185,18 @@ const displayBoard = (() => {
     // We can get the values for the array itself in here and then take that data
     const consoleBoardValues = () => {
         console.log(gameBoardModule.boardObject());
+    };
+
+    const disableBoard = (isDisabled) => {
+        document.querySelectorAll(".board-container button").forEach((elemet) => {
+            console.log("IN DISABLE" + isDisabled);
+            // elemet.addEventListener("click", printHello);
+            if (isDisabled) {
+                elemet.disabled = true;
+            } else {
+                elemet.disabled = false;
+            }
+        });
     };
 
     const iterate = () => {
@@ -181,6 +233,7 @@ const displayBoard = (() => {
                 gameBoardModule.boardObject()[i][j] = "-";
             });
         });
+        disableBoard(false);
         console.log(gameBoardModule.boardObject());
     };
 
@@ -188,6 +241,7 @@ const displayBoard = (() => {
         consoleBoardValues,
         iterate,
         resetBoard,
+        disableBoard,
     };
 })();
 
