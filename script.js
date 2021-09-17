@@ -1,5 +1,3 @@
-// starting again
-
 // player factory will create the players themselves
 const playerFactory = (name) => {
     // this is the games won
@@ -21,9 +19,6 @@ const playerFactory = (name) => {
 // This will handle the logic of the gameboard and updating it
 // here have eventListeners to update the game itself
 // this will handle the state of the game, ie updating score of each player
-// updating the clicks from "-" to "X" based on player
-// determines who wins
-// every time a click is done, we want to check the state of the game, to determine if it is finished
 const gameBoardModule = (() => {
     const docBoard = document.getElementsByClassName("board-container");
     const player1 = playerFactory("John Doe");
@@ -155,11 +150,6 @@ const gameBoardModule = (() => {
     };
 
     document.addEventListener("DOMContentLoaded", () => {
-        // Here there should be some event listeners to see if button is clicked
-        // ORRR listener on the div ORRR do a querry selector all, and make an array ??
-
-        // let btnEl = document.querySelector("button");
-        // btnEl.addEventListener("click", printHello);
         //// displaying player info
         p1Name.innerHTML = `Name: ${player1.getName()}`;
         p1Score.innerHTML = `Score: ${player1.getScore()}`;
@@ -245,5 +235,4 @@ const displayBoard = (() => {
     };
 })();
 
-// displayBoard.consoleBoardValues();
 displayBoard.iterate();
